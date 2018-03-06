@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="app.css" type="text/css" />
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.js" integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+  
     <title>Home</title>
 </head>
 <body>
-    <h1>This is Index Page</h1>
-    <p> Todos App</p>
+ <header>
+    <h1>todo<span>list</span></h1>
+    <h2>A simple todo list app built with node</h2>
+  </header>
+  
+  <section class="form">
+    <input type="text" id="todoInput"
+        placeholder="Insert your task here...">
+  </section>
+
+  <ul class="list">
+  </ul>
     <script type="text/javascript" src="app.js"></script>
 </body>
 </html>

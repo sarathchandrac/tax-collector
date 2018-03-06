@@ -69,6 +69,19 @@ header h2 {
 	color: #bdc3c7;
 }
 
+.delete {
+	float: right;
+    padding: 10px 20px;
+    background: indianred;
+    border: black;
+    border-radius: 100px;
+    margin-right: 100px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+    margin-top: 12px;
+}
+
 li span {
   float: right;
   color: #c0392b;
