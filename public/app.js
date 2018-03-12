@@ -16,19 +16,7 @@ $(document).ready(function () {
     })
 });
 
-function newDOMElement(todo) {
-    var newTodo = $('<li id="'+todo._id+'">' + todo.name + '</li>'),
-        deleteButton = $('<button id="del-'+todo._id+'" class="delete">delete</button>');
 
-    newTodo.addClass('task');
-    if(todo.completed){
-        newTodo.addClass('done');
-    }
-    newTodo.on('click', changeEvent);
-    deleteButton.on('click', deleteTask);
-    newTodo.append(deleteButton);
-    return newTodo;
-}
 
 function addTodos(todos) {
     var sortedList = todos.sort((a,b) => {
@@ -81,35 +69,63 @@ function deleteTask(evt) {
 }
 
 function removeElement(id) {
-    var targetEl = $('#'+ id );
+    var targetEl = $('#'+ id ).parent();
     targetEl.remove();
 }
 
 
 function changeElement(target, todo) {
-    var targetEl = $(target);
+    var targetEl = $(target),
+        parentListItem = targetEl.parent(),
+        deleteButton = $('<div class="todo-col-btn"><button id="del-'+todo._id+'" class="delete">delete</button></div>');
+    
     var hasClassDone = targetEl.hasClass('done');
     console.log('completed, hasClass', todo.completed, hasClassDone);
-    
+    deleteButton.on('click', deleteTask);
+
     if(todo.completed){
         if(!hasClassDone) {
             targetEl.addClass('done');
+            parentListItem.append(deleteButton);
         }
     } else {
         if(hasClassDone){
             targetEl.removeClass('done');
+            $('#del-'+ todo._id).remove();
         }
     }
 }
+
+function newDOMElement(todo) {
+    var newTodo = $('<li></li>'),
+        newTaskNameDiv = $('<div class="todo-col-msg"  id="'+todo._id+'"> ' + todo.name  +'</div>'),
+        deleteButton = $('<div class="todo-col-btn"><button id="del-'+todo._id+'" class="delete">delete</button></div>');
+
+    newTodo.addClass('task');
+    newTaskNameDiv.on('click', changeEvent);
+    newTaskNameDiv.on( { 'touchstart' : changeEvent } );
+    //$('#whatever').on({ 'touchstart' : function(){ /* do something... */ } });
+     if(todo.completed){
+        newTaskNameDiv.addClass('done');
+    }
+    newTodo.append(newTaskNameDiv);
+
+    deleteButton.on('click', deleteTask);
+    if(todo.completed){
+        newTodo.append(deleteButton);
+    }
+    
+    return newTodo;
+}
+
 
 function changeEvent(evt) { 
     var id = evt.target.id;
     var todo = list.find(function(element) {
         return element._id ==  id;
     });
+     event.stopPropagation();
     changeStatus(id, todo, evt.target);
-    console.log('clicked on123 ', evt, todo);
-    // body...
 }
 
 function changeStatus(id, todo, target) {
